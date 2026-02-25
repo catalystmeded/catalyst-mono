@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalyst Medical Education | Accelerate Learning. Improve Care.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #121531;
+    --cyan:   #42A4D9;
+    --cyan-light: #6fbde6;
+    --navy-80: rgba(18,21,49,0.80);
+    --white:  #ffffff;
+    --warm-bg: #f6f5f2;
+    --warm-mid: #eceae5;
+    --text-soft: #5a5d72;
+    --text-muted: #8890a4;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans:  'Montserrat', sans-serif;
+    --radius: 4px;
+    --radius-lg: 16px;
+    --radius-xl: 28px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--navy);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2 { font-family: var(--serif); font-weight: 400; line-height: 1.15; }
+  h3, h4 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: .12em;  /* brand spec: 50pt tracking */
+    color: var(--cyan);
+    line-height: 1.3;
+  }
+  h1 { font-size: clamp(2.6rem, 5.5vw, 4.2rem); }
+  h2 { font-size: clamp(2rem, 3.5vw, 3rem); }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  .section-pad { padding: 110px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px;
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    border-radius: 100px;
+    transition: transform .2s, box-shadow .2s, background .2s;
+    cursor: pointer; border: none;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--cyan); color: var(--white); }
+  .btn-primary:hover { background: var(--cyan-light); box-shadow: 0 8px 28px rgba(66,164,217,.35); }
+  .btn-outline-dark { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+  .btn-outline-dark:hover { background: var(--navy); color: var(--white); }
+  .btn-outline-light { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.45); }
+  .btn-outline-light:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.8); }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background .3s, backdrop-filter .3s, box-shadow .3s;
+  }
+  nav.scrolled {
+    background: rgba(18,21,49,.96);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 24px rgba(0,0,0,.18);
+  }
+  .nav-logo { height: 46px; display: block; }
+  .nav-logo-fallback {
+    font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
+    color: var(--white); letter-spacing: .02em; display: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,.82); font-size: 11px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-cta a {
+    background: var(--cyan); color: var(--white) !important;
+    padding: 9px 22px; border-radius: 100px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    transition: background .2s, transform .2s !important;
+  }
+  .nav-cta a:hover { background: var(--cyan-light); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--white); display: block; transition: .3s; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('HCPPx_iStock669520230.jpg');
+    background-size: cover; background-position: center 20%;
+    opacity: .22;
+  }
+  /* Layered gradient: diagonal dark-to-transparent */
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(115deg, rgba(18,21,49,1) 38%, rgba(18,21,49,.62) 65%, rgba(18,21,49,.12) 100%);
+  }
+  /* Subtle cyan accent line top */
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan) 0%, transparent 70%);
+    z-index: 5;
+  }
+  .hero-content {
+    position: relative; z-index: 10;
+    padding: 0 40px 80px;
+    max-width: 1180px; margin: 0 auto; width: 100%;
+    padding-top: 160px;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 36px; height: 1px; background: var(--cyan);
+  }
+  .hero h1 {
+    color: var(--white);
+    max-width: 740px;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.08;
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: normal; color: var(--cyan); }
+  .hero p.lead {
+    color: rgba(255,255,255,.72);
+    font-size: 16px; font-weight: 300;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 42px;
+  }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* Scroll cue */
+  .scroll-cue {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 10; opacity: .5;
+  }
+  .scroll-cue span { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--white); }
+  .scroll-cue-line { width: 1px; height: 40px; background: rgba(255,255,255,.4); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:.3; transform:scaleY(1)} 50%{opacity:1; transform:scaleY(1.2)} }
+
+  /* ─── IMPACT STRIP ─── */
+  .impact-strip {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 0;
+  }
+  .impact-strip-inner {
+    max-width: 1180px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid rgba(255,255,255,.08);
+  }
+  .impact-stat {
+    padding: 48px 40px;
+    border-right: 1px solid rgba(255,255,255,.08);
+    position: relative;
+  }
+  .impact-stat::after {
+    content: '';
+    position: absolute; bottom: 0; left: 40px; right: 40px;
+    height: 1px; background: transparent;
+  }
+  .stat-num {
+    display: block;
+    font-family: var(--serif); font-size: 3.4rem; font-weight: 400;
+    color: var(--white); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-num sup { font-size: 1.6rem; vertical-align: super; }
+  .stat-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+  .stat-sub { font-size: 12px; color: var(--cyan); font-style: italic; margin-top: 6px; }
+
+  /* ─── VALUE PROPS ─── */
+  .value-section {
+    background: var(--warm-bg);
+    padding: 100px 0;
+  }
+  .value-header { max-width: 640px; margin-bottom: 64px; }
+  .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--warm-mid); }
+  .value-card {
+    background: var(--warm-bg);
+    padding: 48px 36px;
+    transition: background .25s;
+  }
+  .value-card:hover { background: var(--white); }
+  .value-num {
+    font-family: var(--serif); font-size: 3rem; font-weight: 400;
+    color: var(--warm-mid);
+    line-height: 1; margin-bottom: 20px;
+    transition: color .25s;
+  }
+  .value-card:hover .value-num { color: var(--cyan); }
+  .value-card h3 { font-size: 13px; margin-bottom: 14px; }
+  .value-card p { font-size: 14px; color: var(--text-soft); line-height: 1.7; }
+
+  /* ─── ABOUT ─── */
+  .about-section { background: var(--navy); padding: 110px 0; }
+  .about-text .eyebrow { color: var(--cyan); }
+  .about-text h2 { color: var(--white); margin-bottom: 24px; max-width: 540px; }
+  .about-text p { color: rgba(255,255,255,.68); font-size: 15px; line-height: 1.85; margin-bottom: 20px; max-width: 520px; }
+
+  .about-highlights { display: grid; gap: 2px; }
+  .about-hl {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    transition: background .2s;
+  }
+  .about-hl:hover { background: rgba(255,255,255,.07); }
+  .about-hl-icon { font-size: 22px; margin-bottom: 10px; }
+  .about-hl h4 { font-family: var(--serif); font-size: 1.2rem; color: var(--white); margin-bottom: 8px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .about-hl p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+  /* ─── METHODOLOGY (NEW) ─── */
+  .method-section { background: var(--white); padding: 110px 0; }
+  .method-header { max-width: 620px; margin-bottom: 72px; }
+  .method-header h2 { margin-bottom: 18px; }
+  .method-header p { color: var(--text-soft); font-size: 15px; line-height: 1.8; }
+
+  .method-track {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative;
+  }
+  .method-track::before {
+    content: '';
+    position: absolute; top: 28px; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cyan) 0%, rgba(66,164,217,.15) 100%);
+    z-index: 0;
+  }
+  .method-step { padding: 0 24px 0 0; position: relative; z-index: 1; }
+  .method-dot {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--cyan);
+    margin-bottom: 24px;
+  }
+  .method-step h4 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 10px; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--navy); }
+  .method-step p { font-size: 13px; color: var(--text-soft); line-height: 1.7; }
+  .method-step ul { padding-left: 16px; margin-top: 10px; }
+  .method-step ul li { font-size: 12px; color: var(--text-soft); margin-bottom: 4px; }
+
+  /* ─── OUTCOMES PROOF (NEW — the differentiator) ─── */
+  .outcomes-section { background: var(--navy); padding: 110px 0; overflow: hidden; }
+  .outcomes-header { margin-bottom: 72px; }
+  .outcomes-header .eyebrow { color: var(--cyan); }
+  .outcomes-header h2 { color: var(--white); max-width: 620px; }
+  .outcomes-header p { color: rgba(255,255,255,.6); max-width: 520px; font-size: 15px; line-height: 1.8; margin-top: 16px; }
+
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .outcome-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.07);
+    padding: 48px;
+    transition: background .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .outcome-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 3px; height: 0;
+    background: var(--cyan);
+    transition: height .4s ease;
+  }
+  .outcome-card:hover::before { height: 100%; }
+  .outcome-card:hover { background: rgba(255,255,255,.07); }
+
+  .outcome-program { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; }
+
+  .knowledge-bars { margin: 24px 0; }
+  .kb-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .kb-label { font-size: 11px; color: rgba(255,255,255,.5); width: 64px; flex-shrink: 0; }
+  .kb-track { flex: 1; height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+  .kb-fill { height: 100%; border-radius: 3px; transition: width 1.2s ease; }
+  .kb-fill.pre { background: rgba(255,255,255,.25); }
+  .kb-fill.post { background: var(--cyan); }
+  .kb-fill.followup { background: var(--cyan-light); }
+  .kb-pct { font-size: 12px; font-weight: 700; color: var(--white); width: 36px; text-align: right; flex-shrink: 0; }
+
+  .outcome-metrics { display: flex; gap: 28px; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.07); }
+  .outcome-metric-val { display: block; font-family: var(--serif); font-size: 2rem; color: var(--white); line-height: 1; }
+  .outcome-metric-label { display: block; font-size: 10px; color: rgba(255,255,255,.45); letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+
+  /* ─── SERVICES ─── */
+  .services-section { background: var(--warm-bg); padding: 110px 0; }
+  .services-header { max-width: 620px; margin-bottom: 64px; }
+  .services-header h2 { margin-bottom: 16px; }
+  .services-header p { color: var(--text-soft); }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--warm-mid); }
+  .service-card {
+    background: var(--warm-bg);
+    padding: 44px 40px;
+    position: relative;
+    transition: background .25s;
+    overflow: hidden;
+  }
+  .service-card:hover { background: var(--white); }
+  .service-card::after {
+    content: '→';
+    position: absolute; bottom: 32px; right: 36px;
+    font-size: 20px; color: var(--warm-mid);
+    transition: color .25s, transform .25s;
+  }
+  .service-card:hover::after { color: var(--cyan); transform: translateX(4px); }
+  .service-card h3 { font-size: 13px; margin-bottom: 14px; }
+  .service-card p { font-size: 14px; color: var(--text-soft); line-height: 1.7; }
+
+  /* ─── FEATURED INITIATIVES (NEW) ─── */
+  .initiatives-section { background: var(--white); padding: 110px 0; }
+  .initiatives-header { max-width: 620px; margin-bottom: 64px; }
+  .initiatives-header h2 { margin-bottom: 16px; }
+  .initiatives-header p { color: var(--text-soft); font-size: 15px; }
+
+  .initiatives-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 56px; }
+  .initiative-card {
+    border: 1px solid var(--warm-mid);
+    border-radius: var(--radius-xl);
+    padding: 36px 32px;
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+  }
+  .initiative-card:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 12px 40px rgba(66,164,217,.12);
+    transform: translateY(-4px);
+  }
+  .initiative-tag {
+    display: inline-block;
+    font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--cyan); background: rgba(66,164,217,.1);
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 18px;
+  }
+  .initiative-card h4 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 12px; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--navy); }
+  .initiative-card p { font-size: 13px; color: var(--text-soft); line-height: 1.65; margin-bottom: 20px; }
+  .initiative-stats { display: flex; gap: 20px; padding-top: 20px; border-top: 1px solid var(--warm-mid); }
+  .init-stat { text-align: center; }
+  .init-stat-val { display: block; font-family: var(--serif); font-size: 1.5rem; color: var(--navy); }
+  .init-stat-label { display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; }
+
+  .global-strip {
+    background: var(--warm-bg);
+    border-radius: var(--radius-xl);
+    padding: 48px 56px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  }
+  .global-strip h3 { font-size: 1.6rem; max-width: 440px; }
+  .global-strip h3 em { font-style: italic; color: var(--cyan); }
+  .global-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+  .global-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--navy); background: var(--white);
+    padding: 8px 16px; border-radius: 100px;
+    border: 1px solid var(--warm-mid);
+    white-space: nowrap;
+  }
+
+  /* ─── COLLABORATIONS ─── */
+  .collab-section { background: var(--navy); padding: 110px 0; }
+  .collab-header .eyebrow { color: var(--cyan); }
+  .collab-header h2 { color: var(--white); margin-bottom: 16px; }
+  .collab-header p { color: rgba(255,255,255,.58); max-width: 520px; margin-bottom: 64px; font-size: 15px; }
+
+  .collab-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(255,255,255,.05); }
+  .collab-group {
+    background: var(--navy);
+    padding: 48px 48px 44px;
+    transition: background .2s;
+  }
+  .collab-group:hover { background: rgba(255,255,255,.03); }
+  .collab-group-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.3); margin-bottom: 20px; display: block;
+  }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,.8);
+    background: rgba(255,255,255,.07);
+    padding: 8px 18px; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,.1);
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .chip:hover { background: var(--cyan); border-color: var(--cyan); color: var(--white); }
+  .chip-primary { border-color: rgba(66,164,217,.4); color: var(--cyan-light); }
+
+  /* ─── CONTACT ─── */
+  .contact-section { background: var(--warm-bg); padding: 110px 0; }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: start;
+  }
+  .contact-text .eyebrow { margin-bottom: 16px; }
+  .contact-text h2 { margin-bottom: 22px; }
+  .contact-text p { color: var(--text-soft); font-size: 15px; line-height: 1.8; margin-bottom: 36px; }
+
+  .contact-detail { display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start; }
+  .contact-detail-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .contact-detail-val { font-size: 14px; color: var(--navy); }
+
+  .contact-form { background: var(--white); border-radius: var(--radius-xl); padding: 52px 48px; box-shadow: 0 4px 40px rgba(18,21,49,.06); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+  .form-group:last-of-type { margin-bottom: 28px; }
+  .form-group label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 14px 18px;
+    border: 1.5px solid var(--warm-mid);
+    border-radius: 10px;
+    font-family: var(--sans); font-size: 14px;
+    color: var(--navy); background: var(--warm-bg);
+    transition: border-color .2s, background .2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--cyan); background: var(--white);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit { width: 100%; padding: 16px; }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--navy); color: rgba(255,255,255,.7); }
+  .footer-main {
+    max-width: 1180px; margin: 0 auto; padding: 80px 40px 60px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px;
+  }
+  .footer-brand p { font-size: 13px; line-height: 1.75; margin: 20px 0 28px; color: rgba(255,255,255,.45); max-width: 260px; }
+  .footer-logo { height: 38px; }
+
+  .newsletter-form { display: flex; gap: 0; border-radius: 100px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); }
+  .newsletter-form input {
+    flex: 1; padding: 11px 18px;
+    background: rgba(255,255,255,.07); border: none; outline: none;
+    color: var(--white); font-family: var(--sans); font-size: 13px;
+  }
+  .newsletter-form input::placeholder { color: rgba(255,255,255,.35); }
+  .newsletter-form button {
+    padding: 11px 20px; background: var(--cyan); border: none;
+    color: var(--white); font-family: var(--sans); font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: background .2s; white-space: nowrap;
+  }
+  .newsletter-form button:hover { background: var(--cyan-light); }
+
+  .footer-col h5 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 11px; }
+  .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--cyan); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    max-width: 1180px; margin: 0 auto; padding: 24px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(255,255,255,.3);
+  }
+  .footer-bottom a { color: rgba(255,255,255,.3); transition: color .2s; }
+  .footer-bottom a:hover { color: var(--cyan); }
+  .footer-legal { display: flex; gap: 24px; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-up.visible { opacity: 1; transform: none; }
+  .fade-up:nth-child(2) { transition-delay: .1s; }
+  .fade-up:nth-child(3) { transition-delay: .2s; }
+  .fade-up:nth-child(4) { transition-delay: .3s; }
+  .fade-up:nth-child(5) { transition-delay: .4s; }
+  .fade-up:nth-child(6) { transition-delay: .5s; }
+  .fade-up:nth-child(7) { transition-delay: .6s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .grid-3, .services-grid { grid-template-columns: 1fr 1fr; }
+    .method-track { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .method-track::before { display: none; }
+    .value-grid { grid-template-columns: 1fr 1fr; }
+    .impact-strip-inner { grid-template-columns: 1fr 1fr; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .collab-groups { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .initiatives-grid { grid-template-columns: 1fr 1fr; }
+    .global-strip { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 768px) {
+    .container, .hero-content { padding-left: 24px; padding-right: 24px; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; flex-direction: column; align-items: flex-start; gap: 0;
+      position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+      background: var(--navy); padding: 80px 32px 40px; z-index: 9999;
+      transform: translateX(100%); transition: transform .3s;
+    }
+    .nav-links.open { display: flex; transform: none; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 14px 0; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .nav-links .nav-cta a { border: none; background: var(--cyan); text-align: center; border-radius: 6px; margin-top: 16px; }
+    .hamburger { display: flex; }
+    .grid-2 { grid-template-columns: 1fr; gap: 48px; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .value-grid, .grid-3, .services-grid { grid-template-columns: 1fr; }
+    .impact-strip-inner { grid-template-columns: 1fr 1fr; }
+    .method-track { grid-template-columns: 1fr; }
+    .initiatives-grid { grid-template-columns: 1fr; }
+    .footer-main { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <img src="Catalyst_Logo_White.png" alt="Catalyst Medical Education" class="nav-logo"
+    onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='block';">
+  <span class="nav-logo-fallback" id="nav-logo-text">Catalyst Medical Education</span>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#methodology">Approach</a></li>
+    <li><a href="#outcomes">Impact</a></li>
+    <li><a href="#services">What We Do</a></li>
+    <li><a href="#collaborations">Collaborations</a></li>
+    <li class="nav-cta"><a href="#contact">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Independent Medical Education</div>
+    <h1>Accelerate<br>Learning.<br><em>Improve Care.</em></h1>
+    <p class="lead">We design and deliver accredited continuing education programs that measurably close clinical practice gaps — for grant funders who demand both rigor and results.</p>
+    <div class="hero-ctas">
+      <a href="#outcomes" class="btn btn-primary">See Our Impact</a>
+      <a href="#contact" class="btn btn-outline-light">Get Started</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- IMPACT STRIP — real data from decks, no revenue/grant volume -->
+<section class="impact-strip">
+  <div class="impact-strip-inner">
+    <div class="impact-stat fade-up">
+      <span class="stat-num">90<sup>%+</sup></span>
+      <span class="stat-label">Intend to change practice</span>
+      <span class="stat-sub">Consistent across all programs</span>
+    </div>
+    <div class="impact-stat fade-up">
+      <span class="stat-num">97<sup>%+</sup></span>
+      <span class="stat-label">Satisfaction — found value</span>
+      <span class="stat-sub">Faculty, objectives &amp; components</span>
+    </div>
+    <div class="impact-stat fade-up">
+      <span class="stat-num">100<sup>+</sup></span>
+      <span class="stat-label">Years combined IME experience</span>
+      <span class="stat-sub">Across 30–50+ therapeutic areas</span>
+    </div>
+    <div class="impact-stat fade-up">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Languages. 4 continents.</span>
+      <span class="stat-sub">ISO 17100–certified global reach</span>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPS -->
+<section class="value-section" id="about">
+  <div class="container">
+    <div class="value-header fade-up">
+      <span class="eyebrow">Why Catalyst</span>
+      <h2>Four reasons grant funders choose us.</h2>
+    </div>
+    <div class="value-grid">
+      <div class="value-card fade-up">
+        <div class="value-num">01</div>
+        <h3>Unparalleled Service</h3>
+        <p>A small, senior, highly accessible team with deep therapeutic expertise and established relationships across accredited providers, medical societies, faculty, and audience generation partners. One point of contact. Total accountability.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-num">02</div>
+        <h3>Strategic Instructional Design</h3>
+        <p>Every program begins with a rigorous needs assessment and a curriculum built on adult learning principles — designed to move learners from knowledge gaps through competence and measurable practice change.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-num">03</div>
+        <h3>Cost-Effective &amp; Outcomes-Driven</h3>
+        <p>We amortize content development investments, negotiate across our collaborator network, and build multi-format curricula that maximize educational reach without maximizing spend. You get more — for less.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-num">04</div>
+        <h3>Extensive Track Record</h3>
+        <p>100+ years of combined IME experience across 30–50+ therapeutic areas. Oncology, hepatology, rare disease, neurology, immunology, pharmacy, and more — with documented outcomes to back every claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="container">
+    <div class="grid-2">
+      <div class="about-text fade-up">
+        <span class="eyebrow">About Catalyst</span>
+        <h2>Advancing patient care through cost-effective, outcomes-driven education.</h2>
+        <p>Catalyst Medical Education, LLC is an independent medical education company that designs and delivers accredited continuing education programs for healthcare professionals. Our funding comes entirely through the regulated medical education grant process — commercial supporters in pharma and biotech fund programs that close identified clinical practice gaps.</p>
+        <p>We operate as a lean, expert-led team. This means our clients work directly with senior, credentialed professionals at every stage — not account managers. Our mission is to speed the translation of the latest clinical data into everyday practice, and every program we deliver is designed to prove it.</p>
+        <a href="#contact" class="btn btn-outline-light" style="margin-top: 8px;">Work With Us</a>
+      </div>
+      <div class="about-highlights fade-up">
+        <div class="about-hl">
+          <div class="about-hl-icon">⚕</div>
+          <h4>Curriculum &amp; Needs Assessment</h4>
+          <p>Literature review, expert input, learner surveys, and EMR data — all informing a defensible gap analysis and scientific rationale for every grant request.</p>
+        </div>
+        <div class="about-hl" style="margin-top:2px;">
+          <div class="about-hl-icon">🌐</div>
+          <h4>Global Reach</h4>
+          <p>We develop and coordinate global education with ISO 17100–certified translations — not just language conversion, but clinical and cultural adaptation for each region and regulatory environment.</p>
+        </div>
+        <div class="about-hl" style="margin-top:2px;">
+          <div class="about-hl-icon">📊</div>
+          <h4>Outcomes+ Reporting</h4>
+          <p>Pre/post/follow-up assessments with cohort-level statistical analyses, predictive modeling, and financial impact estimates — giving supporters the data that drives future investment decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY (NEW) -->
+<section class="method-section" id="methodology">
+  <div class="container">
+    <div class="method-header fade-up">
+      <span class="eyebrow">Our Approach</span>
+      <h2>A planning methodology built for every phase of drug development.</h2>
+      <p>Our PBLI-based framework aligns educational strategy with where a therapy is in its lifecycle — from pre-approval needs assessment through post-launch performance optimization — ensuring education is always timely, targeted, and evidence-grounded.</p>
+    </div>
+    <div class="method-track">
+      <div class="method-step fade-up">
+        <div class="method-dot">1</div>
+        <h4>Establishing Needs</h4>
+        <p>Before any program is designed, we identify and document the gaps.</p>
+        <ul>
+          <li>Literature review &amp; expert opinion</li>
+          <li>Learner surveys &amp; EMR data</li>
+          <li>Change Readiness Inventory</li>
+          <li>Pilot programs</li>
+        </ul>
+      </div>
+      <div class="method-step fade-up">
+        <div class="method-dot">2</div>
+        <h4>Knowledge Gaps</h4>
+        <p>Expert-driven methods to build foundational awareness and understanding.</p>
+        <ul>
+          <li>Evidence-based symposia</li>
+          <li>Disease/state awareness</li>
+          <li>MoA education</li>
+          <li>Traditional &amp; digital media</li>
+        </ul>
+      </div>
+      <div class="method-step fade-up">
+        <div class="method-dot">3</div>
+        <h4>Competence Gaps</h4>
+        <p>Learner-driven formats that translate knowledge into clinical skill.</p>
+        <ul>
+          <li>Case-based discussion</li>
+          <li>Shared decision-making</li>
+          <li>Team-based care models</li>
+          <li>PBLI Stage A &amp; B</li>
+        </ul>
+      </div>
+      <div class="method-step fade-up">
+        <div class="method-dot">4</div>
+        <h4>Performance Gaps</h4>
+        <p>System-level methods that embed change into clinical practice.</p>
+        <ul>
+          <li>Quality Improvement</li>
+          <li>Barrier mitigation</li>
+          <li>PBLI Stage C</li>
+          <li>Outcomes measurement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES PROOF — the differentiator -->
+<section class="outcomes-section" id="outcomes">
+  <div class="container">
+    <div class="outcomes-header fade-up">
+      <span class="eyebrow">Proven Impact</span>
+      <h2>Real programs. Real knowledge gains. Real practice change.</h2>
+      <p>We report outcomes using the Moore framework — the industry standard for demonstrating educational impact. Here's what that looks like in practice across some of our recent initiatives.</p>
+    </div>
+    <div class="outcomes-grid">
+
+      <div class="outcome-card fade-up">
+        <div class="outcome-program">Breast Cancer Learning Center · Oncology · Nursing</div>
+        <h4 style="color:var(--white); font-family:var(--serif); text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:8px; font-weight:400;">Knowledge &amp; Competence Gains</h4>
+        <p style="font-size:13px; color:rgba(255,255,255,.5); margin-bottom:4px;">Pre → Post → Follow-Up</p>
+        <div class="knowledge-bars">
+          <div class="kb-row">
+            <span class="kb-label">Pre</span>
+            <div class="kb-track"><div class="kb-fill pre" style="width:37%" data-width="37%"></div></div>
+            <span class="kb-pct">37%</span>
+          </div>
+          <div class="kb-row">
+            <span class="kb-label">Post</span>
+            <div class="kb-track"><div class="kb-fill post" style="width:85%" data-width="85%"></div></div>
+            <span class="kb-pct">85%</span>
+          </div>
+          <div class="kb-row">
+            <span class="kb-label">Follow-up</span>
+            <div class="kb-track"><div class="kb-fill followup" style="width:93%" data-width="93%"></div></div>
+            <span class="kb-pct">93%</span>
+          </div>
+        </div>
+        <div class="outcome-metrics">
+          <div>
+            <span class="outcome-metric-val">9,703</span>
+            <span class="outcome-metric-label">Learners</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">97%</span>
+            <span class="outcome-metric-label">Found value</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">90%</span>
+            <span class="outcome-metric-label">Intend to act</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card fade-up">
+        <div class="outcome-program">Follicular Lymphoma Learning Center · Hematology/Oncology</div>
+        <h4 style="color:var(--white); font-family:var(--serif); text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:8px; font-weight:400;">Knowledge &amp; Competence Gains</h4>
+        <p style="font-size:13px; color:rgba(255,255,255,.5); margin-bottom:4px;">Pre → Post — +150% lift</p>
+        <div class="knowledge-bars">
+          <div class="kb-row">
+            <span class="kb-label">Pre</span>
+            <div class="kb-track"><div class="kb-fill pre" style="width:38%" data-width="38%"></div></div>
+            <span class="kb-pct">38%</span>
+          </div>
+          <div class="kb-row">
+            <span class="kb-label">Post</span>
+            <div class="kb-track"><div class="kb-fill post" style="width:98%" data-width="98%"></div></div>
+            <span class="kb-pct">98%</span>
+          </div>
+          <div class="kb-row" style="opacity:.3;">
+            <span class="kb-label">Follow-up</span>
+            <div class="kb-track"><div class="kb-fill followup" style="width:87%" data-width="87%"></div></div>
+            <span class="kb-pct">87%</span>
+          </div>
+        </div>
+        <div class="outcome-metrics">
+          <div>
+            <span class="outcome-metric-val">12,410</span>
+            <span class="outcome-metric-label">Learners</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">98%</span>
+            <span class="outcome-metric-label">Found value</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">87%</span>
+            <span class="outcome-metric-label">Intend to act</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card fade-up">
+        <div class="outcome-program">NASH/MASH Learning Center · Hepatology/GI</div>
+        <h4 style="color:var(--white); font-family:var(--serif); text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:8px; font-weight:400;">Knowledge &amp; Competence Gains</h4>
+        <p style="font-size:13px; color:rgba(255,255,255,.5); margin-bottom:4px;">Pre → Post → Follow-Up</p>
+        <div class="knowledge-bars">
+          <div class="kb-row">
+            <span class="kb-label">Pre</span>
+            <div class="kb-track"><div class="kb-fill pre" style="width:49%" data-width="49%"></div></div>
+            <span class="kb-pct">49%</span>
+          </div>
+          <div class="kb-row">
+            <span class="kb-label">Post</span>
+            <div class="kb-track"><div class="kb-fill post" style="width:64%" data-width="64%"></div></div>
+            <span class="kb-pct">64%</span>
+          </div>
+          <div class="kb-row">
+            <span class="kb-label">Follow-up</span>
+            <div class="kb-track"><div class="kb-fill followup" style="width:47%" data-width="47%"></div></div>
+            <span class="kb-pct">47%</span>
+          </div>
+        </div>
+        <div class="outcome-metrics">
+          <div>
+            <span class="outcome-metric-val">6,660</span>
+            <span class="outcome-metric-label">Learners</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">98%</span>
+            <span class="outcome-metric-label">Found value</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">92%</span>
+            <span class="outcome-metric-label">Intend to act</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card fade-up">
+        <div class="outcome-program">Rare Disease Platform · Pompe, Fabry, MLD + others</div>
+        <h4 style="color:var(--white); font-family:var(--serif); text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:8px; font-weight:400;">rare-ed.com — 30+ Active Courses</h4>
+        <p style="font-size:13px; color:rgba(255,255,255,.55); line-height:1.65; margin-top:12px;">Our rare disease education portal aggregates 30+ accredited CE activities spanning Pompe disease, Fabry disease, acid sphingomyelinase deficiency, sickle cell disease, hereditary angioedema, and more — hosted and distributed nationally and globally through our partnership with NexusMedX.</p>
+        <div class="outcome-metrics" style="margin-top: 28px;">
+          <div>
+            <span class="outcome-metric-val">30+</span>
+            <span class="outcome-metric-label">Rare disease courses</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">12+</span>
+            <span class="outcome-metric-label">Pompe CE activities</span>
+          </div>
+          <div>
+            <span class="outcome-metric-val">96%</span>
+            <span class="outcome-metric-label">Found value</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top:56px;" class="fade-up">
+      <p style="color:rgba(255,255,255,.45); font-size:14px; margin-bottom:20px;">Outcomes are reported using the Moore Outcomes Framework — the ACCME industry standard for demonstrating educational impact.</p>
+      <a href="#contact" class="btn btn-primary">Request an Outcomes Report</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="services-header fade-up">
+      <span class="eyebrow">What We Do</span>
+      <h2>Built for every stage of the education lifecycle.</h2>
+      <p style="color:var(--text-soft);">From needs assessment through outcomes reporting, Catalyst manages the full continuum of independent medical education — live, virtual, and enduring, domestic and global.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <h3>Curriculum &amp; Instructional Design</h3>
+        <p>Every program begins with a rigorous needs assessment and a clearly defined instructional framework grounded in adult learning principles — ensuring activities close specific, documented gaps in clinical practice.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Live &amp; Virtual Symposia</h3>
+        <p>Full-service planning and execution of live, virtual, and hybrid educational events — symposia, roundtables, dinner programs, satellite sessions — with expert faculty and engagement tools built for HCP audiences at major medical meetings worldwide.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Learning Centers &amp; Serial Education</h3>
+        <p>On-demand modules, webcasts, and enduring learning experiences structured for ongoing engagement. We build and host dedicated learning center websites with reinforcing resources — infographics, FAQ tools, guidelines access, and learner alerts.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>MoA Animations</h3>
+        <p>Scientifically accurate mechanism-of-action animations that clarify complex therapeutic concepts, improve retention, and elevate the learner experience across live and enduring formats. Optimized for conference display and on-demand delivery.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Global Education &amp; Translations</h3>
+        <p>International program development with ISO 17100–certified translations in 5+ languages — not just language conversion, but clinical, cultural, and regulatory adaptation for each market. AI is never used for direct translation.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Outcomes+ Reporting &amp; Insights</h3>
+        <p>Our enhanced outcomes framework delivers cohort-level statistical analyses, predictive modeling, and financial impact estimates — giving supporters the data they need and the intelligence to plan future education strategically.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Patient Interviews &amp; Education</h3>
+        <p>Patient and care-partner voice integrated into CE — video interviews, patient learning portals, and caregiver-focused infographics — supporting the ACCME's emphasis on patient perspectives in accredited education.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Pharmacy &amp; Allied Health Education</h3>
+        <p>Accredited CE for pharmacists, nurses, and allied health professionals, developed through our strategic partnership with the University of Tennessee College of Pharmacy and distributed via PowerPak and other specialty channels.</p>
+      </div>
+      <div class="service-card fade-up">
+        <h3>Needs Assessments</h3>
+        <p>Rigorous, publication-quality gap analyses grounded in literature review, expert opinion, learner surveys, and real-world data — building the scientific rationale for every grant submission and educational initiative.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED INITIATIVES (NEW) -->
+<section class="initiatives-section" id="resources">
+  <div class="container">
+    <div class="initiatives-header fade-up">
+      <span class="eyebrow">Featured Initiatives</span>
+      <h2>Active learning platforms we've built and continue to grow.</h2>
+      <p>A selection of current educational platforms developed in partnership with our accredited providers — each featuring multiple formats, learner resources, and outcomes measurement.</p>
+    </div>
+    <div class="initiatives-grid">
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Hepatology · Live + Enduring</span>
+        <h4>MASH Learning Center</h4>
+        <p>A comprehensive symposium series and enduring resource platform spanning DDW, EASL, Paris MASH, EASD, and UEG — delivered across North America and Europe with archived content, infographics, and MoA animations.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">9+</span><span class="init-stat-label">Live Symposia</span></div>
+          <div class="init-stat"><span class="init-stat-val">91%</span><span class="init-stat-label">Found value</span></div>
+          <div class="init-stat"><span class="init-stat-val">mash-ce.com</span></div>
+        </div>
+      </div>
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Oncology · Nursing · AHP</span>
+        <h4>Breast Cancer Learning Center</h4>
+        <p>Five-activity initiative developed in collaboration with the Institute of Johns Hopkins Nursing, featuring patient infographics and translations in Spanish, French, Italian, German, and Portuguese.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">9,703</span><span class="init-stat-label">Learners</span></div>
+          <div class="init-stat"><span class="init-stat-val">+130%</span><span class="init-stat-label">Knowledge lift</span></div>
+          <div class="init-stat"><span class="init-stat-val">breastcancer-ce.com</span></div>
+        </div>
+      </div>
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Hematology/Oncology · Physician</span>
+        <h4>Follicular Lymphoma Learning Center</h4>
+        <p>Four accredited CE activities focused on an emerging first-in-class EZH2 inhibitor — demonstrating Catalyst's ability to drive education around novel mechanisms where knowledge gaps are deepest.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">12,410</span><span class="init-stat-label">Learners</span></div>
+          <div class="init-stat"><span class="init-stat-val">+150%</span><span class="init-stat-label">Knowledge lift</span></div>
+          <div class="init-stat"><span class="init-stat-val">fl-cme.com</span></div>
+        </div>
+      </div>
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Rare Disease · Multi-TA Platform</span>
+        <h4>Rare-Ed Learning Center</h4>
+        <p>Our rare disease education portal: 30+ accredited CE activities spanning Pompe, Fabry, HAE, sickle cell disease, GM2 gangliosidosis, SMA, and CIDP — hosted globally via NexusMedX.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">30+</span><span class="init-stat-label">Active courses</span></div>
+          <div class="init-stat"><span class="init-stat-val">Global</span><span class="init-stat-label">Distribution</span></div>
+          <div class="init-stat"><span class="init-stat-val">rare-ed.com</span></div>
+        </div>
+      </div>
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Neurology · Rare Disease</span>
+        <h4>Pompe Disease Initiative</h4>
+        <p>12+ CE activities including live symposia, livestreams, rebroadcasts, case-based enduring education, clinical animations, and a Learning Center — with conference archives from ICIEM, WORLD Symposium, ACMG, and SIMD.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">12+</span><span class="init-stat-label">CE Activities</span></div>
+          <div class="init-stat"><span class="init-stat-val">4</span><span class="init-stat-label">Conferences</span></div>
+          <div class="init-stat"><span class="init-stat-val">pompecme.com</span></div>
+        </div>
+      </div>
+      <div class="initiative-card fade-up">
+        <span class="initiative-tag">Pharmacy · Oncology</span>
+        <h4>Pharmacy Education Partnership</h4>
+        <p>Live webcasts and enduring CE for pharmacists and pharmacy students, developed with the University of Tennessee College of Pharmacy and distributed via PowerPak — reaching community, hospital, and specialty pharmacy audiences.</p>
+        <div class="initiative-stats">
+          <div class="init-stat"><span class="init-stat-val">3,073</span><span class="init-stat-label">Learners</span></div>
+          <div class="init-stat"><span class="init-stat-val">88%</span><span class="init-stat-label">Found value</span></div>
+          <div class="init-stat"><span class="init-stat-val">powerpak.com</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global strip -->
+    <div class="global-strip fade-up">
+      <h3>ISO 17100–certified translations — not just language, but <em>clinical and cultural adaptation</em> for every market.</h3>
+      <div class="global-badges">
+        <span class="global-badge">🇺🇸 English</span>
+        <span class="global-badge">🇪🇸 Spanish</span>
+        <span class="global-badge">🇫🇷 French</span>
+        <span class="global-badge">🇮🇹 Italian</span>
+        <span class="global-badge">🇩🇪 German</span>
+        <span class="global-badge">🇵🇹 Portuguese</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLABORATIONS -->
+<section class="collab-section" id="collaborations">
+  <div class="container">
+    <div class="collab-header fade-up">
+      <span class="eyebrow">Collaborations</span>
+      <h2>A trusted network, curated over decades.</h2>
+      <p>We negotiate and manage relationships across the full ecosystem of medical education — accredited providers, medical societies, audience generation partners, and technology platforms — so grant funders work with one team, not many.</p>
+    </div>
+    <div class="collab-groups">
+      <div class="collab-group fade-up">
+        <span class="collab-group-label">Accredited Providers</span>
+        <div class="chip-row">
+          <span class="chip chip-primary">AKH Inc. — Primary Joint Accreditor</span>
+          <span class="chip">University of Tennessee</span>
+          <span class="chip">Johns Hopkins</span>
+          <span class="chip">IJHN</span>
+        </div>
+      </div>
+      <div class="collab-group fade-up">
+        <span class="collab-group-label">Medical Societies</span>
+        <div class="chip-row">
+          <span class="chip">CMSC</span>
+          <span class="chip">IOMSN</span>
+          <span class="chip">Additional societies available on request</span>
+        </div>
+      </div>
+      <div class="collab-group fade-up">
+        <span class="collab-group-label">Audience Generation Partners</span>
+        <div class="chip-row">
+          <span class="chip">Medical Journals</span>
+          <span class="chip">PowerPak</span>
+          <span class="chip">FreeCME</span>
+          <span class="chip">MyCME</span>
+          <span class="chip">NexusMedX</span>
+        </div>
+      </div>
+      <div class="collab-group fade-up">
+        <span class="collab-group-label">Technology Partners</span>
+        <div class="chip-row">
+          <span class="chip">Array</span>
+          <span class="chip">Monday.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text fade-up">
+        <span class="eyebrow">Get in Touch</span>
+        <h2>Let's talk about your next educational initiative.</h2>
+        <p>Whether you're a commercial supporter looking to fund accredited education, a medical society exploring partnership opportunities, or an accredited provider seeking a collaborator — we'd like to hear from you.</p>
+        <div class="contact-detail">
+          <div>
+            <div class="contact-detail-label">Website</div>
+            <div class="contact-detail-val">www.catalystmeded.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div>
+            <div class="contact-detail-label">Staging</div>
+            <div class="contact-detail-val">cata-corp.flywheelsites.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="jane@company.com">
+        </div>
+        <div class="form-group">
+          <label>Company / Organization</label>
+          <input type="text" placeholder="Pharma company, medical society, etc.">
+        </div>
+        <div class="form-group">
+          <label>I am a…</label>
+          <select>
+            <option value="">Select one</option>
+            <option>Commercial Supporter (Grant Funder)</option>
+            <option>Medical Society / Association</option>
+            <option>Accredited Provider</option>
+            <option>Faculty / Key Opinion Leader</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your educational goals or initiative…"></textarea>
+        </div>
+        <button class="btn btn-primary form-submit" onclick="handleSubmit(this)">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="Catalyst_Logo_White.png" alt="Catalyst Medical Education" class="footer-logo"
+        onerror="this.outerHTML='<div style=\'font-family:Georgia,serif;font-size:1.2rem;color:white;\'>Catalyst Medical Education</div>'">
+      <p>Independent medical education that accelerates learning and improves care — accredited, outcomes-driven, and built to close clinical practice gaps.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Catalyst</a></li>
+        <li><a href="#methodology">Our Approach</a></li>
+        <li><a href="#outcomes">Proven Impact</a></li>
+        <li><a href="#collaborations">Collaborations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Capabilities</h5>
+      <ul>
+        <li><a href="#services">Live &amp; Virtual Symposia</a></li>
+        <li><a href="#services">Learning Centers</a></li>
+        <li><a href="#services">MoA Animations</a></li>
+        <li><a href="#services">Global Education</a></li>
+        <li><a href="#services">Outcomes+</a></li>
+        <li><a href="#services">Needs Assessments</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Active Platforms</h5>
+      <ul>
+        <li><a href="https://mash-ce.com" target="_blank">mash-ce.com</a></li>
+        <li><a href="https://breastcancer-ce.com" target="_blank">breastcancer-ce.com</a></li>
+        <li><a href="https://fl-cme.com" target="_blank">fl-cme.com</a></li>
+        <li><a href="https://pompecme.com" target="_blank">pompecme.com</a></li>
+        <li><a href="https://rare-ed.com" target="_blank">rare-ed.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Catalyst Medical Education, LLC. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
+  });
+
+  // IntersectionObserver for fade-up
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#28a745';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>

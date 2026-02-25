@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalyst Medical Education | Advancing Patient Care Through Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #42A4D9;
+    --navy: #121531;
+    --white: #ffffff;
+    --bg-soft: #faf9f8;
+    --text-soft: #4a4a4a;
+    --radius: 16px;
+    --shadow: 0 12px 40px rgba(18,21,49,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--navy); background: var(--bg-soft); line-height: 1.6; font-size: 15px; }
+
+  h1, h2 { font-family: 'Georgia', serif; font-weight: normal; }
+  h1 { font-size: clamp(2.5rem, 4.5vw, 4rem); line-height: 1.15; color: var(--navy); }
+  h2 { font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.2; margin-bottom: 24px; }
+  h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+  .section-pad { padding: 100px 0; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); margin-bottom: 20px; }
+  .eyebrow::before { content: ''; display: block; width: 30px; height: 2px; background: var(--cyan); border-radius: 2px; }
+
+  .btn { display: inline-block; padding: 16px 36px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; font-size: 13px; transition: all 0.3s; border-radius: 30px; }
+  .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 8px 20px rgba(18,21,49,0.2); }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(18,21,49,0.3); background: var(--cyan); }
+  .btn-outline { background: var(--white); color: var(--navy); border: 1px solid rgba(18,21,49,0.15); }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+  /* ── NAV ── */
+  nav {
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(18,21,49,0.06);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(18,21,49,0.08); }
+
+  .nav-logo img { height: 44px; width: auto; display: block; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { color: var(--navy); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; transition: color 0.2s; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-links .nav-cta a {
+    background: var(--cyan);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 30px;
+    transition: all 0.25s;
+  }
+  .nav-links .nav-cta a:hover { background: var(--navy); transform: translateY(-1px); }
+
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--navy); transition: all 0.3s; border-radius: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 100px 5% 160px;
+    background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 60%, #f5f9fc 100%);
+    overflow: hidden;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 640px; }
+  .hero h1 em { font-style: italic; color: var(--cyan); }
+  .hero p { font-size: 17px; color: var(--text-soft); margin: 24px 0 40px; line-height: 1.75; }
+  .hero-ctas { display: flex; gap: 15px; flex-wrap: wrap; }
+
+  .hero-img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 1;
+    mask-image: linear-gradient(to right, transparent 0%, black 20%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%);
+    filter: brightness(1.05);
+  }
+
+  /* ── STATS ── */
+  .stats-wrap { margin-top: -70px; position: relative; z-index: 10; padding: 0 5%; }
+  .stats-grid {
+    display: flex;
+    justify-content: space-between;
+    background: var(--white);
+    padding: 40px 48px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .stat { text-align: center; flex: 1; min-width: 140px; }
+  .stat-num { font-family: 'Georgia', serif; font-size: 38px; color: var(--cyan); display: block; margin-bottom: 6px; line-height: 1; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--navy); font-weight: 700; }
+
+  /* ── GRIDS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(18,21,49,0.04);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    border: 1px solid rgba(18,21,49,0.04);
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: rgba(66,164,217,0.25); }
+  .card h3 { color: var(--navy); margin-bottom: 14px; font-size: 17px; text-transform: none; letter-spacing: 0; font-family: 'Georgia', serif; }
+  .card p { color: var(--text-soft); font-size: 14px; line-height: 1.75; }
+
+  /* ── PILLARS ── */
+  .pillar-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--navy);
+    color: var(--white);
+    padding: 120px 0;
+    margin-top: 80px;
+    border-radius: 40px;
+  }
+  .about-section h2 { color: var(--white); }
+  .about-section p { color: rgba(255,255,255,0.78); margin-bottom: 20px; font-size: 15px; line-height: 1.8; }
+  .highlight-card {
+    background: rgba(255,255,255,0.05);
+    padding: 24px 28px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(66,164,217,0.12);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .highlight-card:hover { background: rgba(66,164,217,0.08); border-color: rgba(66,164,217,0.3); }
+  .highlight-card h4 { color: var(--cyan); font-size: 13px; margin-bottom: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .highlight-card p { font-size: 13px; margin: 0; color: rgba(255,255,255,0.65); }
+
+  /* ── TEAM ── */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+  .team-card { text-align: center; }
+  .team-img-wrap {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--white);
+    box-shadow: var(--shadow);
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .team-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+  .team-initials { color: var(--white); font-family: Georgia, serif; font-size: 40px; }
+  .team-card h3 { font-family: 'Georgia', serif; font-size: 19px; color: var(--navy); text-transform: none; letter-spacing: 0; margin-bottom: 4px; }
+  .team-role { font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 16px; }
+  .team-card ul { list-style: none; text-align: left; background: var(--white); padding: 22px 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .team-card ul li { font-size: 12px; color: var(--text-soft); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.6; }
+  .team-card ul li:last-child { margin-bottom: 0; }
+  .team-card ul li::before { content: '•'; position: absolute; left: 0; color: var(--cyan); font-size: 14px; line-height: 1.4; }
+
+  .join-strip {
+    background: var(--bg-soft);
+    border: 1px solid rgba(18,21,49,0.06);
+    border-radius: var(--radius);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+  .join-strip h3 { font-family: 'Georgia', serif; font-size: 1.5rem; color: var(--navy); text-transform: none; letter-spacing: 0; margin: 0; }
+  .join-strip p { font-size: 13px; color: var(--text-soft); margin-top: 4px; }
+
+  /* ── COLLABORATIONS ── */
+  .chip-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 28px; }
+  .chip {
+    background: var(--white);
+    border: 1.5px solid rgba(18,21,49,0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    transition: all 0.25s;
+  }
+  .chip:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+  .collab-cat-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--navy); border-radius: 40px; padding: 100px 0; margin-top: 80px; }
+  .contact-section h2 { color: var(--white); }
+  .contact-section .eyebrow { color: var(--cyan); }
+  .contact-section p { color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.8; margin-top: 16px; max-width: 460px; }
+
+  .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(66,164,217,0.15); border-radius: var(--radius); padding: 44px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus { border-color: var(--cyan); background: rgba(66,164,217,0.07); }
+  .form-field select option { background: var(--navy); color: var(--white); }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%;
+    background: var(--cyan);
+    color: var(--white);
+    border: none;
+    padding: 16px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--white); color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  .contact-info { margin-top: 48px; display: flex; flex-direction: column; gap: 24px; }
+  .contact-info-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-info-icon { width: 40px; height: 40px; background: rgba(66,164,217,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .contact-info-text h4 { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+  .contact-info-text p { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 56px 5% 40px;
+    background: var(--white);
+    border-top: 1px solid rgba(18,21,49,0.06);
+    margin-top: 80px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(18,21,49,0.06);
+  }
+  .footer-logo img { height: 36px; display: block; }
+  .footer-tagline { font-size: 13px; color: var(--text-soft); margin-top: 10px; }
+  .footer-links-group { display: flex; gap: 48px; flex-wrap: wrap; }
+  .footer-col h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--cyan); margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul a { font-size: 12px; color: var(--text-soft); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--navy); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom p { font-size: 11px; color: rgba(18,21,49,0.4); }
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a { font-size: 11px; color: rgba(18,21,49,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--navy); }
+
+  /* Newsletter */
+  .newsletter-form { display: flex; gap: 0; margin-top: 14px; }
+  .newsletter-form input {
+    flex: 1;
+    background: var(--bg-soft);
+    border: 1px solid rgba(18,21,49,0.1);
+    border-right: none;
+    border-radius: 30px 0 0 30px;
+    padding: 11px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: var(--navy);
+    outline: none;
+  }
+  .newsletter-form input::placeholder { color: rgba(18,21,49,0.35); }
+  .newsletter-form button {
+    background: var(--cyan);
+    border: none;
+    border-radius: 0 30px 30px 0;
+    padding: 11px 20px;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { background: var(--navy); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .grid-2 { grid-template-columns: 1fr; gap: 48px; }
+    .hero-img { position: relative; width: 100%; height: 360px; margin-top: 48px; mask-image: none; -webkit-mask-image: none; border-radius: var(--radius); }
+    .hero { padding-bottom: 80px; }
+    .about-section { border-radius: 24px; }
+    .contact-section { border-radius: 24px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: fixed; top: 76px; left: 0; right: 0; background: var(--white); padding: 24px 5%; border-top: 1px solid rgba(18,21,49,0.06); box-shadow: 0 8px 24px rgba(18,21,49,0.08); gap: 20px; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .stats-wrap { margin-top: 32px; }
+    .stats-grid { padding: 28px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .section-pad { padding: 72px 0; }
+    .about-section, .contact-section { border-radius: 16px; padding: 72px 0; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .join-strip { flex-direction: column; align-items: flex-start; padding: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#home" class="nav-logo">
+    <img src="Catalyst_Logo_Full_Color01.png" alt="Catalyst Medical Education"
+         onerror="this.outerHTML='<span style=\'font-family:Georgia,serif;font-size:22px;color:#121531\'>Catalyst <span style=\'font-family:Montserrat,sans-serif;font-size:9px;color:#42A4D9;font-weight:700;letter-spacing:0.2em;display:block;text-transform:uppercase\'>Medical Education</span></span>'">
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">What We Do</a></li>
+    <li><a href="#collaborations">Collaborations</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li class="nav-cta"><a href="#contact">Contact Us</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <span class="eyebrow">Independent Medical Education</span>
+    <h1>Advancing patient care through<br><em>cost-effective,</em><br>outcomes-driven education.</h1>
+    <p>Catalyst Medical Education designs and delivers accredited continuing education programs for healthcare professionals — grant-funded, outcomes-measured, and built to create measurable change in clinical practice.</p>
+    <div class="hero-ctas">
+      <a href="#about" class="btn btn-primary">Learn More</a>
+      <a href="#contact" class="btn btn-outline">Get Started</a>
+    </div>
+  </div>
+  <img src="HCPPx_iStock669520230.jpg" alt="Healthcare professional consultation" class="hero-img">
+</section>
+
+<!-- STATS -->
+<div class="stats-wrap">
+  <div class="stats-grid fade-up">
+    <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Years Combined IME Experience</span></div>
+    <div class="stat"><span class="stat-num">~$6.5M</span><span class="stat-label">Annual Grant Revenue</span></div>
+    <div class="stat"><span class="stat-num">~200</span><span class="stat-label">Grant Requests / Year</span></div>
+    <div class="stat"><span class="stat-num">30–50+</span><span class="stat-label">Therapeutic Areas</span></div>
+  </div>
+</div>
+
+<!-- VALUE PILLARS -->
+<section class="section-pad container" id="pillars">
+  <div style="text-align:center; max-width:680px; margin:0 auto 60px;" class="fade-up">
+    <span class="eyebrow">Why Catalyst</span>
+    <h2>The value of working with Catalyst</h2>
+    <p style="color:var(--text-soft); font-size:16px;">Strategic, scientific, and relentlessly outcomes-focused — every program we build is designed to create measurable change in clinical practice.</p>
+  </div>
+  <div class="grid-2" style="gap:28px;">
+    <div class="card fade-up">
+      <span class="pillar-label">01. Unparalleled Service</span>
+      <p>A dedicated team that treats every program with the same care and attention as if it were our own — responsive and committed from grant submission through final outcomes report.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="pillar-label">02. Strategic Instructional Design</span>
+      <p>Education engineered around specific clinical gaps. Every activity is grounded in a robust needs assessment, clearly defined learning objectives, and a validated outcomes framework.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="pillar-label">03. Cost-Effective &amp; Outcomes-Driven</span>
+      <p>Maximizing educational impact within real-world budget constraints through smart design and proven methodology — without compromising scientific integrity or learner experience.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="pillar-label">04. Extensive Track Record</span>
+      <p>Decades of IME experience across therapeutic areas, activity formats, and accreditation frameworks — from live medical symposia to global digital enduring education and everything in between.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container grid-2">
+    <div class="fade-up">
+      <span class="eyebrow">About Catalyst</span>
+      <h2>Advancing patient care through cost-effective, outcomes-driven education</h2>
+      <p>Catalyst Medical Education, LLC is an independent medical education company that designs and delivers accredited continuing education programs for healthcare professionals. We are grant-funded — commercial supporters in pharma and biotech fund educational programs through a regulated grant process.</p>
+      <p>Our team brings together 100+ years of combined IME experience across 30–50+ therapeutic areas — working across live, virtual, and enduring formats, domestically and globally.</p>
+      <a href="#contact" class="btn btn-outline" style="margin-top:16px; border-color:rgba(255,255,255,0.25); color:var(--white);">Work With Us</a>
+    </div>
+    <div class="fade-up">
+      <div class="highlight-card">
+        <h4>MoA Animations &amp; Patient Interviews</h4>
+        <p>Rich media education assets that enhance learner comprehension and deepen engagement with complex therapeutic concepts.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Global Education &amp; Translations</h4>
+        <p>Adapting programs for international HCP audiences with cultural, clinical, and regulatory precision — not just language conversion.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Outcomes Data &amp; Reporting</h4>
+        <p>Actionable outcomes data that informs internal stakeholders, demonstrates educational impact, and defines opportunities for future programs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM SECTION — placeholder, bios pending -->
+<!-- Will be built out on About page once all bios confirmed -->
+
+<!-- SERVICES -->
+<section class="section-pad container" id="services">
+  <div class="fade-up" style="max-width:600px; margin-bottom:52px;">
+    <span class="eyebrow">What We Do</span>
+    <h2>Built for every stage of the education lifecycle</h2>
+    <p style="color:var(--text-soft); font-size:16px;">From curriculum design through outcomes reporting, Catalyst manages the full continuum of independent medical education — live, virtual, and enduring.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card fade-up">
+      <h3>Curriculum &amp; Instructional Design</h3>
+      <p>Every program begins with a rigorous needs assessment and a clearly defined instructional framework — ensuring educational activities are grounded in evidence and designed to close specific gaps in clinical practice.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>Live &amp; Virtual Symposia</h3>
+      <p>Full-service planning and execution of live and virtual educational events — symposia, roundtables, dinner programs, and conference satellite sessions — with expert faculty and engagement tools built for HCP audiences.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>Learning Centers &amp; Serial Education</h3>
+      <p>On-demand modules, webcasts, and enduring learning experiences delivered through our accredited provider partnerships — structured for ongoing learner engagement across a disease area or therapeutic series.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>MoA Animations</h3>
+      <p>Scientifically accurate mechanism-of-action animations that clarify complex therapeutic concepts, improve knowledge retention, and elevate the overall learner experience across both live and enduring formats.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>Global Education &amp; Translations</h3>
+      <p>International program development and culturally adapted content for HCP audiences outside the US — not just language translation, but clinical, cultural, and regulatory adaptation for each market.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>Outcomes+ Reporting &amp; Insights</h3>
+      <p>Our proprietary outcomes framework delivers validated pre/post analyses, practice-change data, and actionable reporting — giving supporters the evidence they need and informing opportunities for future education.</p>
+    </div>
+    <div class="card fade-up">
+      <h3>Patient Interviews</h3>
+      <p>Compelling patient perspectives integrated into educational content to humanize therapeutic concepts, build empathy, and contextualize clinical decision-making within the real patient journey.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COLLABORATIONS -->
+<section class="section-pad container" id="collaborations">
+  <div class="grid-2">
+    <div class="fade-up">
+      <span class="eyebrow">Our Network</span>
+      <h2>Core Collaborations</h2>
+      <p style="color:var(--text-soft); font-size:16px; margin-top:0;">We maintain strong partnerships across the IME ecosystem — from accredited providers and medical societies to audience generation and technology platforms — giving every program reach, credibility, and infrastructure.</p>
+    </div>
+    <div class="fade-up">
+      <span class="collab-cat-label">Accredited Providers</span>
+      <div class="chip-wrap">
+        <span class="chip">AKH Inc. (Primary Joint Accreditor)</span>
+        <span class="chip">University of Tennessee</span>
+        <span class="chip">Johns Hopkins</span>
+        <span class="chip">IJHN</span>
+      </div>
+      <span class="collab-cat-label">Medical Societies</span>
+      <div class="chip-wrap">
+        <span class="chip">CMSC</span>
+        <span class="chip">IOMSN</span>
+      </div>
+      <span class="collab-cat-label">Audience Generation Partners</span>
+      <div class="chip-wrap">
+        <span class="chip">Medical Journals</span>
+        <span class="chip">PowerPak</span>
+        <span class="chip">FreeCME</span>
+        <span class="chip">MyCME</span>
+      </div>
+      <span class="collab-cat-label">Technology Partners</span>
+      <div class="chip-wrap">
+        <span class="chip">Array</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container grid-2">
+    <div class="fade-up">
+      <span class="eyebrow">Contact Us</span>
+      <h2>Let's build something impactful together</h2>
+      <p>Whether you're seeking a partner for your next educational initiative or exploring how Catalyst can support your grant strategy, we'd love to hear from you.</p>
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div class="contact-info-text">
+            <h4>Email</h4>
+            <p>info@catalystmeded.com</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🔗</div>
+          <div class="contact-info-text">
+            <h4>Follow Us</h4>
+            <p>LinkedIn · Twitter/X</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="contact-form">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label>First Name</label>
+              <input type="text" placeholder="Jane">
+            </div>
+            <div class="form-field">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" placeholder="jane@organization.com">
+            </div>
+            <div class="form-field">
+              <label>Organization</label>
+              <input type="text" placeholder="Your organization">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Subject</label>
+            <select>
+              <option value="" disabled selected>Select a subject</option>
+              <option>Educational Program Partnership</option>
+              <option>Grant Support</option>
+              <option>Outcomes Services</option>
+              <option>Careers</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea placeholder="Tell us about your project or inquiry..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        <img src="Catalyst_Logo_Full_Color01.png" alt="Catalyst Medical Education"
+             onerror="this.outerHTML='<span style=\'font-family:Georgia,serif;font-size:20px;color:#121531\'>Catalyst Medical Education</span>'">
+      </div>
+      <p class="footer-tagline">Dedicated to improving care through<br>cost-effective, outcomes-driven education.</p>
+      <div class="newsletter-form" style="margin-top:20px; max-width:280px;">
+        <input type="email" placeholder="Subscribe to updates">
+        <button type="button">Join</button>
+      </div>
+    </div>
+    <div class="footer-links-group">
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#collaborations">Collaborations</a></li>
+          <li><a href="#contact">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Live Activities</a></li>
+          <li><a href="#services">Enduring Education</a></li>
+          <li><a href="#services">Outcomes Measurement</a></li>
+          <li><a href="#services">Global Education</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Whitepapers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Catalyst Medical Education. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile nav
+  const toggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#1a7a3c';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+</script>
+</body>
+</html>
