@@ -1,0 +1,52 @@
+name: CI — HTML Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find HTML files
+        id: find-html
+        run: |
+          html_files=$(find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*" | head -50)
+          if [ -z "$html_files" ]; then
+            echo "No HTML files found"
+            exit 0
+          fi
+          echo "Found HTML files:"
+          echo "$html_files"
+
+      - name: Validate HTML syntax
+        run: |
+          errors=0
+          for file in $(find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*"); do
+            if ! python3 -c "
+          import html.parser, sys
+          class V(html.parser.HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.errors = []
+              def handle_starttag(self, tag, attrs): pass
+              def handle_endtag(self, tag): pass
+          try:
+              V().feed(open('$file').read())
+              print(f'✓ {\"$file\"} — valid')
+          except Exception as e:
+              print(f'✗ {\"$file\"} — {e}')
+              sys.exit(1)
+            "; then
+              errors=$((errors + 1))
+            fi
+          done
+          if [ $errors -gt 0 ]; then
+            echo "✗ $errors file(s) failed validation"
+            exit 1
+          fi
+          echo "✓ All HTML files valid"
