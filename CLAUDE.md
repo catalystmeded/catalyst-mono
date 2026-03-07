@@ -1,30 +1,40 @@
-# CLAUDE.md — Catalyst Website Sub-Project
-# Inherits: root CLAUDE.md (always read root first)
+# CLAUDE.md — Catalyst Medical Education
+# Inherits: ~/.claude/CLAUDE.md (global rules always loaded — do not duplicate here)
 # Company: Catalyst Medical Education, LLC
-# Version: 1.0 | Updated: 2026-02-25
+# Scope: Catalyst business + website build
+# Version: 2.0 | Updated: 2026-03-06
 
 ---
 
-## PROJECT STATE
+## CATALYST IDENTITY
 
-Active file: `catalyst-v6.html` (design locked — "Warm Credibility" v3)
-Staging: cata-corp.flywheelsites.com
-Production: www.catalystmeded.com
-Host: Flywheel managed WordPress
-Status: Design locked. Converting HTML → custom WP theme.
+- **What:** CME/IME grant-funded medical education company
+- **Revenue:** ~$6.5M | Grant win rate: ~17.5%
+- **Accredited provider partner:** University of Tennessee (NOT University of Texas)
+- **Address:** 55 Madison Ave, Suite 400, Morristown, NJ 07960
+- **Hosting:** Flywheel managed WordPress
+- **Staging:** cata-corp.flywheelsites.com
+- **Production:** www.catalystmeded.com
 
 ---
 
-## BRAND RULES — NON-NEGOTIABLE
+## CURRENT WEBSITE STATE
 
-Violating these is a Gate 2 failure. No exceptions.
+- **Active file:** `catalyst-v6.html` (design locked — "Warm Credibility" v3)
+- **Status:** Design locked. Converting HTML → custom WordPress theme.
+- **Blocker:** Asset upload to project files pending
+
+---
+
+## BRAND RULES — NON-NEGOTIABLE (Gate 2 failure if violated)
 
 | Element | Spec |
-|---------|------|
+|---|---|
 | H1/H2 font | Georgia (serif) |
 | H3 font | Montserrat SemiBold, ALL CAPS |
 | Body font | Montserrat Regular |
-| Primary color | Per Brand_Guidelines.pdf |
+| Primary color | Cyan #42A4D9 |
+| Secondary color | Navy #121531 |
 | Logo (dark bg) | Catalyst_Logo_White_Version01.png |
 | Logo (light bg) | Catalyst_Logo_Full_Color01.png |
 | Logo (accent) | Catalyst_Logo_Cyan.png |
@@ -34,81 +44,75 @@ Violating these is a Gate 2 failure. No exceptions.
 
 ---
 
-## REAL PERFORMANCE DATA (USE THESE, NEVER PLACEHOLDERS)
+## REAL PERFORMANCE DATA (USE THESE ONLY)
 
-- Satisfaction rate: ≥ 97% (verified from program data)
-- Intent to change practice: ≥ 90%
-- Knowledge improvement range: 37%–93% depending on program
-- Partner: University of Tennessee (NOT University of Texas — critical)
+- Satisfaction rate: ≥97%
+- Intent to change practice: ≥90%
+- Knowledge improvement: 37%–93% depending on program
 - Active learning platforms: mash-ce.com, breastcancer-ce.com, rare-ed.com
 
 ---
 
 ## WORDPRESS THEME STRUCTURE
 
-Convert `catalyst-v6.html` into this exact file structure:
+Convert `catalyst-v6.html` into:
 
 ```
 /wp-content/themes/catalyst-custom/
-├── style.css          (theme header + base styles)
-├── functions.php      (enqueue scripts/styles, register menus)
-├── header.php         (nav, logo)
-├── footer.php         (footer, scripts)
-├── index.php          (home page template)
-├── page-about.php     (about page)
-├── page-services.php  (services page)
-├── page-team.php      (team page)
-├── page-contact.php   (contact page)
-├── page-activities.php (activities/LMS linking)
-└── /assets/
-    ├── /css/
-    ├── /js/
-    └── /images/
+├── style.css
+├── functions.php
+├── header.php
+├── footer.php
+├── index.php
+├── page-about.php
+├── page-services.php
+├── page-team.php
+├── page-contact.php
+├── page-activities.php
+└── /assets/css/ /js/ /images/
 ```
 
 ---
 
 ## ORACLE (GATE 2 — WEBSITE BUILD)
 
-A component passes when:
+Passes when ALL true:
 - Brand fonts render correctly (Georgia H1/H2, Montserrat H3/body)
 - Mobile render passes at 375px, 768px, 1280px
-- Lighthouse score ≥ 90 performance, ≥ 90 accessibility
-- No placeholder text (lorem ipsum = automatic fail)
-- No placeholder stats (generic numbers = automatic fail)
+- Lighthouse score ≥90 performance, ≥90 accessibility
+- No placeholder text or stats
 - All links resolve (no 404s)
-- Contact form routes to correct email via WP Fluent Forms
+- Contact form routes correctly via WP Fluent Forms
 - Logo renders correctly on both dark and light backgrounds
 
 ---
 
-## CONTACT & FORMS
+## PLUGINS (APPROVED — DO NOT ADD WITHOUT LOU APPROVAL)
 
-- Plugin: WP Fluent Forms (already installed — do not add alternatives)
-- Spam: reCAPTCHA v3 + honeypot (enable post-launch)
-- Security: Wordfence (enable post-launch)
-- SEO: RankMath (enable post-launch)
+- WP Fluent Forms — contact forms
+- reCAPTCHA v3 + honeypot — post-launch
+- Wordfence — post-launch
+- RankMath — post-launch
 
 ---
 
-## TEAM (CONFIRMED — USE EXACT TITLES)
+## TEAM (CONFIRMED)
 
 | Name | Title |
-|------|-------|
+|---|---|
 | Lou Settembrino | Founder & CEO |
 | Reshma Desai Carter | COO |
 | Jessica Marshall | VP Medical Strategy |
 | Cathy | [confirm title] |
 | Megan | [last name + title pending from Lou] |
 
-Photo files in project: Cathy_Catalyst.jpg, Jess_Catalyst.jpg, Lou_Catalyst.jpg, Resh_Catalyst.jpg
+Photos: Cathy_Catalyst.jpg, Jess_Catalyst.jpg, Lou_Catalyst.jpg, Resh_Catalyst.jpg
 
 ---
 
 ## 7-PAGE SITE ARCHITECTURE
 
 Home | About | Services | Team | Activities | Outcomes | Contact
-
 Navigation order is fixed. Do not add pages without Lou approval.
 
 ---
@@ -116,24 +120,18 @@ Navigation order is fixed. Do not add pages without Lou approval.
 ## OPEN ITEMS (DO NOT BUILD UNTIL RESOLVED)
 
 - Megan's last name and title → Lou pending
-- Contact form email routing confirmation → Lou pending  
+- Contact form email routing → Lou pending
 - Privacy Policy approach (custom vs iubenda) → Lou decision needed
 - Activities page LMS linking strategy → Lou decision needed
 - Hero video/highlight reel → Jason pending
 
-
 ---
 
-## FILE NAMING CONVENTION (enforced, not suggested)
-- All files: YYYY-MM-DD_DESCRIPTIVE-NAME_vN.ext
-- All closure/governance docs: CLOSURE_YYYY-MM-DD_TOPIC-SLUG.md
-- All build state docs: [PROJECT]_BUILD_STATE_YYYY-MM-DD.md
-- All handoff docs: HANDOFF_YYYY-MM-DD_TOPIC-SLUG.md
-- Never use: "final", "v2final", "copy", "new", or lowercase-hyphen for governance docs
-- Proposals: PROPOSAL_[FUNDER]_[TA]_[FORMAT]_YYYY-MM-DD.docx
-- Build outputs: [COMPONENT]_[PASS]_[SCORE]_YYYY-MM-DD.json
-- Commits: "[PROJECT] [phase]: [what changed] — [oracle result]"
-- Branches: feature/[component-name]-YYYY-MM-DD
-- Never commit directly to main without oracle passing
+## GOVERNANCE REFERENCE
 
-Claude Code and Cowork must follow this convention on every file they create or rename. If a file is found that violates this convention, flag it for rename — do not silently leave it.
+| Document | Location |
+|---|---|
+| Cross-entity decisions (XDEC-###) | `governance/DECISIONS_MASTER_v1.md` |
+| Catalyst decisions (CDEC-###) | `governance/DECISIONS_CATALYST_v1.md` |
+
+**Note:** Catalyst website build decisions use CDEC prefix. Cross-entity decisions (affecting TechCelerate or CAMEOS) use XDEC and live in Master CP.
