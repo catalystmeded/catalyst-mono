@@ -117,6 +117,14 @@ Navigation order is fixed. Do not add pages without Lou approval.
 
 ---
 
+## CATALYST INTERACTIVE
+
+- **URL:** https://interactive.catalystmeded.com (LIVE)
+- **Hosting:** Vercel, deployed from catalyst-mono repo
+- **Deploy:** Use `deploy-interactive` alias on MAC-MOLT (resolves GitHub two-identity issue)
+
+---
+
 ## OPEN ITEMS (DO NOT BUILD UNTIL RESOLVED)
 
 - Megan's last name and title → Lou pending
