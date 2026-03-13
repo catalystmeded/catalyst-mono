@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/webhook/:path*",
+      "destination": "https://cameos-mono-production.up.railway.app/webhook/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

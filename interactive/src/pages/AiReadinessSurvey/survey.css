@@ -1,0 +1,568 @@
+/* ── LAYOUT ── */
+.survey-bg {
+  background: linear-gradient(150deg, #121531 0%, #1a2045 55%, #0d1020 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px 64px;
+}
+
+.card {
+  max-width: 640px;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(66,164,217,0.15);
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.card-header {
+  background: #121531;
+  padding: 22px 32px 18px;
+  border-bottom: 3px solid #42A4D9;
+}
+
+.header-eyebrow {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #42A4D9;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.header-title {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: #7788aa;
+  margin-top: 4px;
+}
+
+/* ── BODY ── */
+.card-body {
+  padding: 28px 32px 36px;
+}
+
+/* ── PROGRESS ── */
+.progress-wrap { margin-bottom: 26px; }
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+
+.progress-label-left {
+  letter-spacing: 2px;
+  color: #42A4D9;
+  text-transform: uppercase;
+}
+
+.progress-label-right { color: #bbb; }
+
+.progress-track {
+  height: 3px;
+  background: #eee;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #42A4D9;
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: #42A4D9;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 13px 28px;
+  font-size: 13px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: #2A85B8; }
+.btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+
+.btn-ms {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+  padding: 12px 24px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 13px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-back:hover { color: #888; }
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── INTRO ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #D6EEF8;
+  border: 1px solid #42A4D9;
+  border-radius: 3px;
+  padding: 7px 14px;
+  font-size: 12px;
+  color: #1a5a7a;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.body-text {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+.field-label {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 15px;
+  font-family: Georgia, serif;
+  border: 1.5px solid #ddd;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #42A4D9;
+}
+
+.helper-text {
+  font-size: 11px;
+  color: #bbb;
+  margin-top: 14px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+}
+
+.error-text {
+  font-size: 12px;
+  color: #9B1C1C;
+  margin-top: 12px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+}
+
+/* ── LIKERT ── */
+.question-axis {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #bbb;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.question-text {
+  font-size: 17px;
+  color: #1a1a2e;
+  line-height: 1.72;
+  margin-bottom: 32px;
+  min-height: 80px;
+}
+
+.likert-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+.likert-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 3px;
+  border: 2px solid #ddd;
+  background: #fff;
+  color: #555;
+  font-size: 19px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.likert-btn:hover {
+  border-color: #42A4D9;
+}
+
+.likert-btn.selected {
+  border-color: #42A4D9;
+  background: #42A4D9;
+  color: #fff;
+  box-shadow: 0 2px 14px rgba(66,164,217,0.35);
+}
+
+.likert-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #aaa;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  margin: 8px 0 36px;
+}
+
+/* ── USAGE CHECKBOXES ── */
+.usage-intro {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.72;
+  margin-bottom: 6px;
+}
+
+.usage-hint {
+  font-size: 12px;
+  color: #888;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  margin-bottom: 20px;
+}
+
+.level-block {
+  margin-bottom: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+}
+
+.level-badge {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: #fff;
+  border-radius: 2px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+
+.level-name {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.level-count {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 10px;
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.12s;
+}
+
+.check-item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: #42A4D9;
+}
+
+.check-item span {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.55;
+}
+
+.check-item.checked span {
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.usage-summary {
+  background: #D6EEF8;
+  border: 1px solid #42A4D9;
+  border-radius: 3px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: #1a5a7a;
+}
+
+.skip-note {
+  font-size: 11px;
+  color: #ccc;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* ── OPEN FIELD ── */
+.open-callout {
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 3px;
+  padding: 13px 16px;
+  margin-bottom: 22px;
+}
+
+.open-callout-label {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #B45309;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.open-callout-text {
+  font-size: 13px;
+  color: #78350F;
+  line-height: 1.65;
+}
+
+textarea {
+  padding: 14px 16px;
+  line-height: 1.75;
+  color: #222;
+  resize: vertical;
+  margin-bottom: 26px;
+}
+
+/* ── RESULT ── */
+.quadrant-card {
+  border-radius: 4px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  border: 1.5px solid;
+}
+
+.quadrant-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.quadrant-icon { font-size: 24px; }
+
+.quadrant-name {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.quadrant-tagline {
+  font-size: 14px;
+  color: #555;
+  font-style: italic;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.quadrant-desc {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.72;
+}
+
+.axis-bars { margin-bottom: 18px; }
+.axis-bar { margin-bottom: 12px; }
+
+.axis-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.axis-bar-track {
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.axis-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.level-result-card {
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border: 1.5px solid;
+}
+
+.level-result-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.level-result-badge {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: #fff;
+  border-radius: 2px;
+  padding: 2px 7px;
+}
+
+.level-result-name {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.level-result-desc {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+
+.level-result-note {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+}
+
+.training-callout {
+  background: #D6EEF8;
+  border-left: 3px solid #42A4D9;
+  padding: 14px 16px;
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 18px;
+}
+
+.training-callout-label {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #42A4D9;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.training-callout-text {
+  font-size: 13px;
+  color: #1a3a4a;
+  line-height: 1.65;
+}
+
+.open-response-card {
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 3px;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+}
+
+.open-response-label {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #B45309;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.open-response-text {
+  font-size: 13px;
+  color: #78350F;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.result-footer {
+  font-size: 11px;
+  color: #bbb;
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* ── SUBMISSION STATUS ── */
+.submit-status {
+  font-family: Montserrat, 'Segoe UI', sans-serif;
+  font-size: 11px;
+  padding: 8px 12px;
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+
+.submit-status.sending { background: #EEF7FC; color: #1a5a7a; }
+.submit-status.success { background: #E8F5EE; color: #1A7A4A; }
+.submit-status.error   { background: #FEF2F2; color: #9B1C1C; }
