@@ -8,7 +8,7 @@ import { loginRequest } from '../../config/msal'
 import { QUESTIONS, USAGE_LEVELS, QUADRANTS } from './surveyData'
 import './survey.css'
 
-const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2AKYApl4szYqaKrnWUgWaLos7svTvfJ2YLqn26m79Tq0YMwdLo6Z78BEtHnag4CI0/exec'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -201,19 +201,16 @@ function SurveyApp() {
     }
 
     try {
-      const res = await fetch(N8N_WEBHOOK_URL, {
+      await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
         body: JSON.stringify(payload),
       })
-      if (res.ok) {
-        setSubmitStatus('success')
-      } else {
-        throw new Error('HTTP ' + res.status)
-      }
+      // Apps Script returns opaque response with no-cors; request succeeds if no throw
+      setSubmitStatus('success')
     } catch (err) {
       setSubmitStatus('error')
-      console.error('Webhook error:', err)
+      console.error('Submission error:', err)
     }
   }
 
